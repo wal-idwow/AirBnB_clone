@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """define BaseModel class"""
-import models
+
 import uuid
 from datetime import datetime
-
+import models
 
 class BaseModel:
     """BaseModel class representation"""
@@ -43,12 +43,11 @@ class BaseModel:
     def to_dict(self):
         """return the dictionary of BaseModel instance
         """
-        #represent dictionary of the object
+
         dict_object = self.__dict__.copy()
-        #add '__class__' key to class name
-        dict_object['__class__'] = self.__class__.__name__
-        #convert created_at and updated_at to ISO format string
+
         dict_object['created_at'] = self.created_at.isoformat()
         dict_object['updated_at'] = self.updated_at.isoformat()
+        dict_object['__class__'] = self.__class__.__name__
 
         return dict_object
