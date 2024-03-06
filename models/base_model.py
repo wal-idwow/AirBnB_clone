@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """define BaseModel class"""
-#import models
+import models
 import uuid
 from datetime import datetime
 
@@ -27,8 +27,8 @@ class BaseModel:
                     self.__dict__[ky] = datetime.strptime(val, time_form)
                 else:
                     self.__dict__[ky] = val
-        #else:
-            #models.storage.new(self)
+        else:
+            models.storage.new(self)
 
     def __str__(self):
         """return the print string representation"""
@@ -38,7 +38,7 @@ class BaseModel:
     def save(self):
         """update update_at with the current time"""
         self.updated_at = datetime.now()
-        #models.storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """return the dictionary of BaseModel instance
