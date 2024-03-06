@@ -1,2 +1,0 @@
-# AirBnB clone - The console
-
