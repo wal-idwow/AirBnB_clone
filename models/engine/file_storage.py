@@ -3,7 +3,6 @@
 
 
 import json
-from models.base_model import BaseModel
 
 
 class FileStorage():
@@ -35,6 +34,13 @@ class FileStorage():
 
     def reload(self):
         """deserializes the json file to __objects (only if the file existes)"""
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.city import City
+        from models.place import Place
+        from models.amenity import Amenity
+        from models.review import Review
+        from models.state import State
         way = FileStorage.__file_path
         try:
             with open(way, encoding='utf-8') as file:

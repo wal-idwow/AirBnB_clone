@@ -6,7 +6,7 @@ from datetime import datetime
 import unittest
 from time import sleep
 from models.base_model import BaseModel
-import models
+import models as models
 import os
 
 class TestBaseModel(unittest.TestCase):

@@ -3,7 +3,7 @@
 
 import uuid
 from datetime import datetime
-import models
+import models as models
 
 class BaseModel:
     """BaseModel class representation"""
