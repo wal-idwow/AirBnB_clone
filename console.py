@@ -148,6 +148,39 @@ changes into the JSON file).
                 else:
                     print("** no instance found **")
 
+    def help_show(self):
+        """Documentation for the help show method"""
+        print("Prints the string representation of an instance based on "
+              "the class name and id.\nUsage: show <Class name> <instance id>"
+              "\nRequirements:""\n\tAtleast 2 arguements:"
+              "\n\t\tClass must already exit."
+              "\n\t\tAn existing instance id.")
+    def help_update(self):
+        """Documentation for the help update method"""
+        print("Updates an instance based on the class name and id by adding\n"
+              "or updating attribute, then saves the change into the\n"
+              "JSON file\nUsage: update <class name> <instance id> <key>"
+              " <value>.\nRequirements:\n\tAtleast 4 arguments:"
+              "\n\t* Class name must exist\n\t* Instance id must be existing"
+              "\n\t* Key attribute name to be updated. (It is added on the"
+              "\n\t  condition it did not exist prior)"
+              "\n\t* An attribute value.")
+
+    def help_create(self):
+        """Documentation for the help create method"""
+        print("Creates a new instance of BaseModel, saves"
+              "it\nto the JSON file and prints the id."
+              "\nUsage: create <class name>/BaseModel"
+              "\nRequirements: \n\t* An existing class name.")
+
+    def help_destroy(self):
+        """Documentation for the help create method"""
+        print("Deletes an instance based on the class name"
+              "\nand id (saves the change into the JSON file)"
+              "\nUsage: destroy <class name> <instance id>"
+              "\nRequirements:"
+              "\n\t* An existing class name."
+              "\n\t* An existing instance id.")
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
