@@ -19,7 +19,7 @@ class FileStorage():
         """Adds a new object to __objects"""
         name_obj = obj.__class__.__name__
         id_obj = obj.id
-        FileStorage.__objects[name_obj + ',' + id_obj] = obj
+        FileStorage.__objects[name_obj + '.' + id_obj] = obj
 
     def save(self):
         """serializes __objects to the json file (path: __file_path)"""
