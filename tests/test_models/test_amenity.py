@@ -78,12 +78,14 @@ class TestAmenitySave(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """"""
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
 
     def tearDown(self):
+        """"""
         try:
             os.remove("file.json")
         except IOError:
@@ -94,6 +96,7 @@ class TestAmenitySave(unittest.TestCase):
             pass
 
     def test_save_updates_time(self):
+        """"""
         amenity = Amenity()
         sleep(0.05)
         first_updated_at = amenity.updated_at
@@ -101,6 +104,7 @@ class TestAmenitySave(unittest.TestCase):
         self.assertLess(first_updated_at, amenity.updated_at)
 
     def test_multiple_saves(self):
+        """"""
         amenity = Amenity()
         sleep(0.05)
         first_updated_at = amenity.updated_at
@@ -112,11 +116,13 @@ class TestAmenitySave(unittest.TestCase):
         self.assertLess(second_updated_at, amenity.updated_at)
 
     def test_save_with_arg(self):
+        """"""
         amenity = Amenity()
         with self.assertRaises(TypeError):
             amenity.save(None)
 
     def test_save_updates_file(self):
+        """"""
         amenity = Amenity()
         amenity.save()
         amenity_id = "Amenity." + amenity.id
@@ -133,6 +139,7 @@ class TestAmenityToDict(unittest.TestCase):
         self.assertIsInstance(Amenity().to_dict(), dict)
 
     def test_to_dict_contains_correct_keys(self):
+        """"""
         amenity = Amenity()
         amenity_dict = amenity.to_dict()
         self.assertIn("id", amenity_dict)
@@ -141,6 +148,7 @@ class TestAmenityToDict(unittest.TestCase):
         self.assertIn("__class__", amenity_dict)
 
     def test_to_dict_datetime_attributes_are_strs(self):
+        """"""
         amenity = Amenity()
         amenity_dict = amenity.to_dict()
         self.assertIsInstance(amenity_dict["id"], str)
@@ -148,6 +156,7 @@ class TestAmenityToDict(unittest.TestCase):
         self.assertIsInstance(amenity_dict["updated_at"], str)
 
     def test_to_dict_output(self):
+        """"""
         dt = datetime.today()
         amenity = Amenity()
         amenity.id = "123456"
@@ -161,10 +170,12 @@ class TestAmenityToDict(unittest.TestCase):
         self.assertDictEqual(amenity.to_dict(), expected_dict)
 
     def test_contrast_to_dict_dunder_dict(self):
+        """"""
         amenity = Amenity()
         self.assertNotEqual(amenity.to_dict(), amenity.__dict__)
 
     def test_to_dict_with_arg(self):
+        """"""
         amenity = Amenity()
         with self.assertRaises(TypeError):
             amenity.to_dict(None)
