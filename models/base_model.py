@@ -51,3 +51,13 @@ class BaseModel:
         dict_object['__class__'] = self.__class__.__name__
 
         return dict_object
+
+
+if __name__ == "__main__":
+    base = BaseModel()
+    inst_dict = base.to_dict()
+    base_new = BaseModel(**inst_dict)
+    print(base)
+    print("========")
+    print("========")
+    print(base_new)
