@@ -24,7 +24,10 @@ class BaseModel:
         if len (kwargs) != 0:
             for ky, val in kwargs.items():
                 if ky == "created_at" or ky == "updated_at":
-                    self.__dict__[ky] = datetime.strptime(val, time_form)
+                    if isinstance(val, datetime):
+                        self.__dict__[ky] = val
+                    else:
+                        self.__dict__[ky] = datetime.strptime(val, time_form)
                 else:
                     self.__dict__[ky] = val
         else:
