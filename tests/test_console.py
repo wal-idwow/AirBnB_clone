@@ -18,9 +18,18 @@ class TestHBNBCommand(unittest.TestCase):
         self.cmd = HBNBCommand()
         self.patcher = patch('sys.stdout', new_callable=StringIO)
         self.mock_stdout = self.patcher.start()
+        if os.path.isfile("file.json"):
+            os.remove("file.json")
+        self.reset_storage()
 
     def tearDown(self):
         self.patcher.stop()
+
+    def reset_storage(self):
+        """Resets FileStorage data."""
+        FileStorage._FileStorage__objects = {}
+        if os.path.isfile(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
 
     def test_create(self):
         with patch('builtins.input', return_value="create BaseModel") as mock_input:
