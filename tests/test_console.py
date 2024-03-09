@@ -58,6 +58,8 @@ class TestHBNBCommand(unittest.TestCase):
                     key = matches.group(1)
                     self.assertEqual(key, expected_key)
 
+
+
     def test_help(self):
         self.assert_help_output("help", """
 Documented commands (type help <topic>):
