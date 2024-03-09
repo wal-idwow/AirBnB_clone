@@ -3,8 +3,14 @@
 
 import cmd
 from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.state import State
+from models.amenity import Amenity
+from models.review import Review
 from models import storage
 from models.user import User
+from models import classes
 
 
 class HBNBCommand(cmd.Cmd):
@@ -40,13 +46,17 @@ class HBNBCommand(cmd.Cmd):
             class_name = args[0]
             if class_name not in globals() or not issubclass(
                     globals()[class_name], BaseModel):
-                print("** class doesn't exist **")
+                if class_name in classes:
+                    class_name = classes[class_name]
+                else:
+                    print("** class doesn't exist **")
             else:
                 instance_id = args[1]
                 key = f"{class_name}.{instance_id}"
                 obj_dict = storage.all()
                 if key in obj_dict:
                     print(obj_dict[key])
+                    return(obj_dict[key])
                 else:
                     print("** no instance found **")
 
@@ -84,6 +94,7 @@ class name."""
                 filtered_obj = [str(obj) for key, obj in obj_dict.items()
                                 if key.startswith(class_name + ".")]
                 print(filtered_obj)
+                return(filtered_obj)
 
     def do_update(self, argv):
         """Updates an instance based on the class name and id by adding
@@ -96,7 +107,9 @@ or updating attribute."""
             print("** class name missing **")
         elif args[0] not in globals() or not issubclass(globals()[args[0]],
                                                         BaseModel):
-            print("** class doesn't exist **")
+            if args[0] not in classes:
+                print("** class doesn't exist **")
+                return
         elif len(args) < 2:
             print("** instance id missing **")
         elif len(args) < 3:
@@ -136,7 +149,9 @@ changes into the JSON file).
             class_name = args[0]
             if class_name not in globals() or not issubclass(
                     globals()[class_name], BaseModel):
-                print("** class doesn't exist **")
+                if class_name not in classes:
+                    print("** class doesn't exist **")
+                    return
             else:
                 inst_id = args[1]
                 key = "{}.{}".format(class_name, inst_id)
@@ -147,6 +162,79 @@ changes into the JSON file).
                     storage.save()
                 else:
                     print("** no instance found **")
+
+    def default(self, arg):
+        """Overrides the dafualt output for unrecognized commands"""
+        class_methods = {
+            'show': self.do_show,
+            'create': self.do_create,
+            'destroy': self.do_destroy,
+            'update': self.do_update,
+            'all': self.do_all,
+            'count':self.do_count
+        }
+
+        if arg[-1:] == ')' and '(' in arg and '.' in arg:
+            raw_arg = arg.split('.')
+            params = raw_arg[1][:-1].split('(') #params[0] destroy
+            arg_id = params[1]
+            if arg_id[:1] == '"' or arg_id[:1] == "'" and arg_id[-1:] == '"' or arg_id[-1:] == "'":
+                arg_id = arg_id[1:-1]
+
+            if params[0] == 'update' or params[0] == 'show' or params[0]=='destroy':
+                if params[0] == 'destroy' or params[0] == 'show':
+
+
+                    if params[0] in class_methods.keys():
+                        if raw_arg[0] in classes:
+                            if params[0] == 'destroy':
+                                res = self.do_destroy(raw_arg[0] + ' ' + arg_id)
+                            else:
+                                res = self.do_show(raw_arg[0] + ' ' + arg_id)
+                else:
+                    update_args = params[1].rstrip(')').split(',')
+                    if len(update_args) == 3:
+                        print("up:", update_args, type(update_args))
+                        res = self.do_update(raw_arg[0] + ' ' + ' '.join(update_args))
+                    else:
+                        print("*** Unknown syntax: {}".format(arg))
+                        return
+
+            else:
+                cmd = arg[:-2].split('.')
+                cmd1 = cmd[0]
+                methd = cmd[1]
+                if cmd1 not in globals() and cmd1 not in classes:
+                    print("** class doesn't exist **")
+                    return
+
+
+                if methd in class_methods.keys():
+                    if cmd1 in classes:
+                        res = class_methods[methd](cmd1)
+
+                else:
+                    print("** method doesn't exist for"
+                          " this class ** {} {}".format(cmd1 , methd))
+        else:
+            print("*** Unknown syntax: {}".format(arg))
+
+    def do_count(self, arg):
+        """Counts the number of instances of a class"""
+        args = arg.split()
+        if not args:
+            print("** class name missing **")
+            return
+
+        class_name = args[0]
+        if class_name not in classes:
+            print("** class doesn't exist **")
+            return
+
+        obj_dict = storage.all()
+        count = sum(1 for obj in obj_dict.values() if type(obj).__name__ == class_name)
+        print(count)
+
 
     def help_show(self):
         """Documentation for the help show method"""
