@@ -97,7 +97,7 @@ class TestUserInstant(unittest.TestCase):
             User(id=None, created_at=None, updated_at=None)
 
 
-class TestUserSave(unittest.TestCase):
+class TestUserSaving(unittest.TestCase):
     """Unittests for testing save method of the User class."""
 
     @classmethod
