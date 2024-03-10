@@ -180,6 +180,5 @@ class TestAmenityDict(unittest.TestCase):
         with self.assertRaises(TypeError):
             amenity_instance.to_dict(None)
 
-
 if __name__ == "__main__":
     unittest.main()

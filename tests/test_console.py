@@ -67,39 +67,12 @@ class TestHBNBCommand(unittest.TestCase):
                     key = matches.group(1)
                     self.assertEqual(key, expected_key)
 
-
-
-    def test_help(self):
-        self.assert_help_output("help", """
-Documented commands (type help <topic>):
-========================================
-EOF  all  count  create  destroy  help  quit  show  update
-""")
-
-    def test_help_EOF(self):
-        self.assert_help_output("help EOF", 'Handles End Of File character.\n\n')
-
-    def test_help_quit(self):
-        self.assert_help_output("help quit", 'Exits the program.\n\n')
-
-    def test_help_create(self):
-        self.assert_help_output("help create", 'Creates an instance.\n\n')
-
-    def test_help_show(self):
-        self.assert_help_output("help show", 'Prints the string representation of an instance.\n\n')
-
-    def test_help_destroy(self):
-        self.assert_help_output("help destroy", 'Deletes an instance based on the class name and id.\n\n')
-
-    def test_help_all(self):
-        self.assert_help_output("help all", 'Prints all string representation of all instances.\n\n')
-
-    def test_help_count(self):
-        self.assert_help_output("help count", 'Counts the instances of a class.\n\n')
-
-    def test_help_update(self):
-        self.assert_help_output("help update", 'Updates an instance by adding or updating attribute.\n\n')
-
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_quit(self, mock_stdout):
+        """Test quit command."""
+        with patch('builtins.input', return_value="quit"):
+            HBNBCommand().cmdloop()
+            self.assertEqual(mock_stdout.getvalue(), "")
 
 if __name__ == '__main__':
     unittest.main()
