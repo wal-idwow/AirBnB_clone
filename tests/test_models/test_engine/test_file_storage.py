@@ -62,37 +62,51 @@ class TestModels(unittest.TestCase):
     def test_base_model(self):
         """Test methods of the BaseModel class."""
         self.assertIsInstance(self.base_model, BaseModel)
-        self.assertEqual(str(self.base_model), "[BaseModel] ({}) {}".format(self.base_model.id, self.base_model.__dict__))
+        self.assertEqual(str(self.base_model),
+                         "[BaseModel] ({}) {}".format(
+                             self.base_model.id, self.base_model.__dict__))
 
     def test_user(self):
         """Test methods of the User class."""
         self.assertIsInstance(self.user, User)
-        self.assertEqual(str(self.user), "[User] ({}) {}".format(self.user.id, self.user.__dict__))
+        self.assertEqual(str(self.user),
+                         "[User] ({}) {}".format(
+                             self.user.id, self.user.__dict__))
 
     def test_city(self):
         """Test methods of the City class."""
         self.assertIsInstance(self.city, City)
-        self.assertEqual(str(self.city), "[City] ({}) {}".format(self.city.id, self.city.__dict__))
+        self.assertEqual(str(self.city),
+                         "[City] ({}) {}".format(
+                             self.city.id, self.city.__dict__))
 
     def test_place(self):
         """Test methods of the Place class."""
         self.assertIsInstance(self.place, Place)
-        self.assertEqual(str(self.place), "[Place] ({}) {}".format(self.place.id, self.place.__dict__))
+        self.assertEqual(str(self.place),
+                         "[Place] ({}) {}".format(
+                             self.place.id, self.place.__dict__))
 
     def test_amenity(self):
         """Test methods of the Amenity class."""
         self.assertIsInstance(self.amenity, Amenity)
-        self.assertEqual(str(self.amenity), "[Amenity] ({}) {}".format(self.amenity.id, self.amenity.__dict__))
+        self.assertEqual(str(self.amenity),
+                         "[Amenity] ({}) {}".format(
+                             self.amenity.id, self.amenity.__dict__))
 
     def test_review(self):
         """Test methods of the Review class."""
         self.assertIsInstance(self.review, Review)
-        self.assertEqual(str(self.review), "[Review] ({}) {}".format(self.review.id, self.review.__dict__))
+        self.assertEqual(str(self.review),
+                         "[Review] ({}) {}".format(
+                             self.review.id, self.review.__dict__))
 
     def test_state(self):
         """Test methods of the State class."""
         self.assertIsInstance(self.state, State)
-        self.assertEqual(str(self.state), "[State] ({}) {}".format(self.state.id, self.state.__dict__))
+        self.assertEqual(str(self.state),
+                         "[State] ({}) {}".format(
+                             self.state.id, self.state.__dict__))
 
     def test_file_storage(self):
         """Test methods of the FileStorage class."""
@@ -101,7 +115,10 @@ class TestModels(unittest.TestCase):
 
     def test_serialization_deserialization(self):
         """Test serialization and deserialization of objects."""
-        obj_list = [self.base_model, self.user, self.city, self.place, self.amenity, self.review, self.state]
+        obj_list = [
+            self.base_model, self.user, self.city,
+            self.place, self.amenity, self.review, self.state
+            ]
         for obj in obj_list:
             obj_id = "{}.{}".format(obj.__class__.__name__, obj.id)
             self.storage.new(obj)
@@ -109,10 +126,19 @@ class TestModels(unittest.TestCase):
             with open(self.file_path, "r", encoding='utf-8') as file:
                 saved_data = json.load(file)
                 self.assertIn(obj_id, saved_data)
-                self.assertEqual(saved_data[obj_id]['__class__'], obj.__class__.__name__)
+                self.assertEqual(
+                    saved_data[obj_id]['__class__'],
+                    obj.__class__.__name__
+                    )
                 self.assertEqual(saved_data[obj_id]['id'], obj.id)
-                self.assertEqual(saved_data[obj_id]['created_at'], obj.created_at.isoformat())
-                self.assertEqual(saved_data[obj_id]['updated_at'], obj.updated_at.isoformat())
+                self.assertEqual(
+                    saved_data[obj_id]['created_at'],
+                    obj.created_at.isoformat()
+                    )
+                self.assertEqual(
+                    saved_data[obj_id]['updated_at'],
+                    obj.updated_at.isoformat()
+                    )
             new_storage = FileStorage()
             new_storage.reload()
             loaded_obj = new_storage.all()[obj_id]

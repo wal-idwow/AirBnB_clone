@@ -14,6 +14,7 @@ import sys
 
 class TestHBNBCommand(unittest.TestCase):
     """"""
+
     def setUp(self):
         self.cmd = HBNBCommand()
         self.patcher = patch('sys.stdout', new_callable=StringIO)
@@ -32,21 +33,26 @@ class TestHBNBCommand(unittest.TestCase):
             os.remove(FileStorage._FileStorage__file_path)
 
     def test_create(self):
-        with patch('builtins.input', return_value="create BaseModel") as mock_input:
+        with patch('builtins.input',
+                   return_value="create BaseModel") as mock_input:
             self.cmd.onecmd("create BaseModel")
-
         out = self.mock_stdout.getvalue()
         self.assertIn("BaseMode", out)
         self.assertRegex(out, r'\b[0-9a-f-]{36}\b')
 
     def test_show(self):
-        with patch('builtins.input', return_value="show BaseModel") as mock_input:
+        with patch('builtins.input',
+                   return_value="show BaseModel") as mock_input:
             self.cmd.onecmd("show BaseModel")
-        self.assertIn("** instance id missing **\n", self.mock_stdout.getvalue())
+        self.assertIn("** instance id missing **\n",
+                      self.mock_stdout.getvalue())
 
     def classes(self):
         """Returns a list of available class names."""
-        return [classname for classname in dir() if re.match(r"Test\w+Command", classname)]
+        return [
+            classname for classname in dir()
+            if re.match(r"Test\w+Command", classname)
+            ]
 
     def assert_help_output(self, command, expected_output):
         """Asserts that the help command produces the expected output."""
@@ -73,6 +79,7 @@ class TestHBNBCommand(unittest.TestCase):
         with patch('builtins.input', return_value="quit"):
             HBNBCommand().cmdloop()
             self.assertEqual(mock_stdout.getvalue(), "")
+
 
 if __name__ == '__main__':
     unittest.main()

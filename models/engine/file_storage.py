@@ -24,8 +24,6 @@ class FileStorage():
     def save(self):
         """serializes __objects to the json file (path: __file_path)"""
         way = FileStorage.__file_path
-
-        #convert objects to dictionary of dictionaries
         obj_new = {ke: FileStorage.__objects[ke].to_dict(
         ) for ke in FileStorage.__objects.keys()}
 
@@ -33,7 +31,9 @@ class FileStorage():
             json.dump(obj_new, file)
 
     def reload(self):
-        """deserializes the json file to __objects (only if the file existes)"""
+        """deserializes the json file to __objects (
+            only if the file existes
+            )"""
         from models.base_model import BaseModel
         from models.user import User
         from models.city import City
@@ -48,6 +48,8 @@ class FileStorage():
                 name_cls = '__class__'
                 for key, value in obj_new.items():
                     if name_cls in value:
-                        FileStorage.__objects[key] = eval(value[name_cls] + '(**value)')
+                        FileStorage.__objects[key] = eval(
+                            value[name_cls] + '(**value)'
+                            )
         except FileNotFoundError:
             pass
