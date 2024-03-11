@@ -176,26 +176,28 @@ changes into the JSON file).
 
         if arg[-1:] == ')' and '(' in arg and '.' in arg:
             raw_arg = arg.split('.')
-            params = raw_arg[1][:-1].split('(') # params[0] destroy
+            params = raw_arg[1][:-1].split('(')
             arg_id = params[1]
-            if arg_id[:1] == '"' or arg_id[:1] == "'" and arg_id[-1:] == '"' or arg_id[-1:] == "'":
+            if arg_id[:1] == '"' or arg_id[:1] == "'" and arg_id[
+                    -1:] == '"' or arg_id[-1:] == "'":
                 arg_id = arg_id[1:-1]
 
-            if params[0] == 'update' or params[0] == 'show' or params[0]=='destroy':
+            if params[0] == 'update' or params[0] == 'show' or params[
+                    0] == 'destroy':
                 if params[0] == 'destroy' or params[0] == 'show':
-
-
                     if params[0] in class_methods.keys():
                         if raw_arg[0] in classes:
                             if params[0] == 'destroy':
-                                res = self.do_destroy(raw_arg[0] + ' ' + arg_id)
+                                res = self.do_destroy(raw_arg[0] + ' ' +
+                                                      arg_id)
                             else:
                                 res = self.do_show(raw_arg[0] + ' ' + arg_id)
                 else:
                     update_args = params[1].rstrip(')').split(',')
                     if len(update_args) == 3:
                         print("up:", update_args, type(update_args))
-                        res = self.do_update(raw_arg[0] + ' ' + ' '.join(update_args))
+                        res = self.do_update(raw_arg[0] + ' ' + ' '.join(
+                            update_args))
                     else:
                         print("*** Unknown syntax: {}".format(arg))
                         return
@@ -208,14 +210,13 @@ changes into the JSON file).
                     print("** class doesn't exist **")
                     return
 
-
                 if methd in class_methods.keys():
                     if cmd1 in classes:
                         res = class_methods[methd](cmd1)
 
                 else:
                     print("** method doesn't exist for"
-                          " this class ** {} {}".format(cmd1 , methd))
+                          " this class ** {} {}".format(cmd1, methd))
         else:
             print("*** Unknown syntax: {}".format(arg))
 
@@ -232,9 +233,9 @@ changes into the JSON file).
             return
 
         obj_dict = storage.all()
-        count = sum(1 for obj in obj_dict.values() if type(obj).__name__ == class_name)
+        count = sum(1 for obj in obj_dict.values() if type(obj).__name__ ==
+                    class_name)
         print(count)
-
 
     def help_show(self):
         """Documentation for the help show method"""
@@ -243,6 +244,7 @@ changes into the JSON file).
               "\nRequirements:""\n\tAtleast 2 arguements:"
               "\n\t\tClass must already exit."
               "\n\t\tAn existing instance id.")
+
     def help_update(self):
         """Documentation for the help update method"""
         print("Updates an instance based on the class name and id by adding\n"
@@ -269,6 +271,7 @@ changes into the JSON file).
               "\nRequirements:"
               "\n\t* An existing class name."
               "\n\t* An existing instance id.")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
