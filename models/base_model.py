@@ -5,12 +5,12 @@ import uuid
 from datetime import datetime
 from models import storage
 
+
 class BaseModel:
     """class BaseModel wich all other classes will inherite"""
 
     def __init__(self, *args, **kwargs):
         """initialize instance attributes
-        
         Args:
             *args : list of argument
             **kwargs (dict): Key/Value of the attributes
@@ -21,7 +21,9 @@ class BaseModel:
                 if key in ["created_at", "updated_at"]:
                     if not isinstance(value, datetime):
                         try:
-                            self.__dict__[key] = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                            self.__dict__[key] = datetime.strptime(
+                                value, "%Y-%m-%dT%H:%M:%S.%f"
+                                )
                             default_value = False
                         except ValueError:
                             pass
@@ -40,7 +42,9 @@ class BaseModel:
 
     def __str__(self):
         """return official string representation"""
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(
+            self.__class__.__name__, self.id, self.__dict__
+            )
 
     def save(self):
         """update the public instance attribute updated_at"""
