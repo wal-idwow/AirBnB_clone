@@ -56,7 +56,7 @@ class HBNBCommand(cmd.Cmd):
                 obj_dict = storage.all()
                 if key in obj_dict:
                     print(obj_dict[key])
-                    return(obj_dict[key])
+                    return (obj_dict[key])
                 else:
                     print("** no instance found **")
 
@@ -94,7 +94,7 @@ the class name."""
                 filtered_obj = [str(obj) for key, obj in obj_dict.items()
                                 if key.startswith(class_name + ".")]
                 print(filtered_obj)
-                return(filtered_obj)
+                return (filtered_obj)
 
     def do_update(self, argv):
         """Updates an instance based on the class name and id by adding
