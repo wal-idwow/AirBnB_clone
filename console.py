@@ -79,8 +79,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
 
     def do_all(self, arg):
-        """Prints all string representation of all instances based or not on the
-class name."""
+        """Prints all string representation of all instances based or not on
+the class name."""
         obj_dict = storage.all()
 
         if not arg:
@@ -171,12 +171,12 @@ changes into the JSON file).
             'destroy': self.do_destroy,
             'update': self.do_update,
             'all': self.do_all,
-            'count':self.do_count
+            'count': self.do_count
         }
 
         if arg[-1:] == ')' and '(' in arg and '.' in arg:
             raw_arg = arg.split('.')
-            params = raw_arg[1][:-1].split('(') #params[0] destroy
+            params = raw_arg[1][:-1].split('(') # params[0] destroy
             arg_id = params[1]
             if arg_id[:1] == '"' or arg_id[:1] == "'" and arg_id[-1:] == '"' or arg_id[-1:] == "'":
                 arg_id = arg_id[1:-1]
