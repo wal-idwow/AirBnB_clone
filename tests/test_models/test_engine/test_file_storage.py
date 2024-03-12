@@ -23,7 +23,7 @@ class TestModels(unittest.TestCase):
     def setUpClass(cls):
         """Setup for the test class."""
         cls.file_path = "file.json"
-        cls.objects = FileStorage._FileStorage__objects
+        cls.objects = FileStorage.__objects
         try:
             os.rename(cls.file_path, "tmp")
         except FileNotFoundError:
