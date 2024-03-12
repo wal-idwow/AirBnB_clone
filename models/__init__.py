@@ -8,6 +8,8 @@ classes = {
     'State': 'State',
     'Place': 'Place',
     'Review': 'Review',
-    'User': 'User'}
+    'User': 'User',
+    'City': 'City'
+}
 storage = FileStorage()
 storage.reload()
