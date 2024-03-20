@@ -1,0 +1,39 @@
+/* style amenities and locations */
+.filters .locations, 
+.filters .amenities {
+    height: 100%;
+    width: 25%;
+    display: inline-block;
+    position: relative;
+}
+
+/* border Locations */
+.filters .locations {
+    border-right: 1px solid #DDDDDD;
+}
+
+/* Header box sizing */
+.filters h2 .filters h3,
+.filters h4 {
+          box-sizing: border-box;
+        -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+}
+
+/* style Header 3 */
+.filters h3 {
+    font-weight: 600;
+    font-size: 1.17em;
+    padding-top: 10px;
+    padding-left: 30px;
+    line-height: 0px;
+  }
+  
+  /* style Header 4 */
+  .filters h4 {
+    padding-left: 30px;
+    padding-bottom: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 0px;
+  }
